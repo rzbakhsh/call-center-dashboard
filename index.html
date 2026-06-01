@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>لوحة تحكم أداء موظفين مركز الاتصال</title>
+<style>:root{
+  --bg:#f0f3f9;--bg2:#fff;--bg3:#e8ecf4;--bg4:#f7f9fc;
+  --card:#fff;--card2:#eef1f8;--card3:#e4e9f5;
+  --border:#d8dff0;--border2:#c4ccdf;
+  --text:#0f1a2e;--text2:#3a4d6b;--text3:#6b7fa3;--text4:#99aac6;
+  --accent:#1a56db;--accent2:#1e40af;--accentL:rgba(26,86,219,.1);
+  --jed:#0284c7;--jedL:rgba(2,132,199,.12);
+  --mak:#7c3aed;--makL:rgba(124,58,237,.12);
+  --green:#059669;--greenL:rgba(5,150,105,.12);
+  --red:#dc2626;--redL:rgba(220,38,38,.12);
+  --amber:#d97706;--amberL:rgba(217,119,6,.12);
+  --gold:#b45309;--goldL:rgba(180,83,9,.12);
+  --violet:#6d28d9;--violetL:rgba(109,40,217,.12);
+  --cyan:#0e7490;--cyanL:rgba(14,116,144,.12);
+  --shadow:0 1px 3px rgba(15,26,46,.06),0 4px 16px rgba(15,26,46,.06);
+  --shadow2:0 2px 8px rgba(15,26,46,.1),0 8px 32px rgba(15,26,46,.1);
+  --r:14px;--r2:10px;--r3:8px;--r4:6px;
+}
+[data-theme=dark]{
+  --bg:#0a0d14;--bg2:#0f1520;--bg3:#141c2e;--bg4:#111827;
+  --card:#0f1520;--card2:#161f32;--card3:#1a2540;
+  --border:#1e2d47;--border2:#253557;
+  --text:#e8f0fe;--text2:#8ba4c8;--text3:#4d6585;--text4:#2d4060;
+  --accent:#3b82f6;--accent2:#60a5fa;--accentL:rgba(59,130,246,.15);
+  --jed:#38bdf8;--jedL:rgba(56,189,248,.15);
+  --mak:#a78bfa;--makL:rgba(167,139,250,.15);
+  --green:#34d399;--greenL:rgba(52,211,153,.15);
+  --red:#f87171;--redL:rgba(248,113,113,.15);
+  --amber:#fbbf24;--amberL:rgba(251,191,36,.15);
+  --gold:#fcd34d;--goldL:rgba(252,211,77,.15);
+  --violet:#c4b5fd;--violetL:rgba(196,181,253,.15);
+  --cyan:#67e8f9;--cyanL:rgba(103,232,249,.15);
+  --shadow:0 2px 8px rgba(0,0,0,.3),0 4px 20px rgba(0,0,0,.25);
+  --shadow2:0 4px 16px rgba(0,0,0,.4),0 8px 40px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',Tahoma,Arial,sans-serif;direction:rtl;min-height:100vh;font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:var(--text3)}
+.shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+/* SIDEBAR */
+.side{background:var(--card);border-left:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;z-index:10}
+.logo-area{padding:20px 16px 16px;border-bottom:1px solid var(--border)}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--accent) 0%,var(--violet) 100%);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;box-shadow:0 4px 12px var(--accentL)}
+.logo-icon svg{width:22px;height:22px}
+.logo-title{font-size:14px;font-weight:800;color:var(--text);line-height:1.3}
+.logo-sub{font-size:10px;color:var(--text3);margin-top:4px;letter-spacing:.2px}
+nav{padding:12px 8px;flex:1}
+.ns{font-size:9.5px;font-weight:700;color:var(--text4);letter-spacing:1.2px;text-transform:uppercase;padding:8px 10px 4px}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--r2);cursor:pointer;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:2px;border:none;background:transparent;width:100%;text-align:right;transition:all .15s}
+.ni:hover{background:var(--bg3);color:var(--text)}
+.ni.on{background:var(--accent);color:#fff;box-shadow:0 2px 10px rgba(59,130,246,.35)}
+.ni svg{width:15px;height:15px;flex-shrink:0;opacity:.8}
+.ni.on svg{opacity:1}
+.nb{background:rgba(255,255,255,.22);color:#fff;border-radius:10px;padding:1px 7px;font-size:9.5px;font-weight:800;margin-right:auto}
+.si-bottom{margin-top:auto;border-top:1px solid var(--border)}
+.loc-area{padding:12px 10px}
+.loc-sec{font-size:9.5px;font-weight:700;color:var(--text4);letter-spacing:1.2px;text-transform:uppercase;padding:0 2px 8px}
+.lb{display:flex;align-items:center;gap:8px;background:transparent;color:var(--text2);border:1px solid var(--border);border-radius:var(--r2);padding:8px 12px;font-size:12px;font-weight:600;cursor:pointer;width:100%;text-align:right;margin-bottom:5px;transition:all .15s}
+.lb:hover{background:var(--bg3)}
+.lb.lA{background:var(--accentL);color:var(--accent);border-color:var(--accent)}
+.lb.lJ{background:var(--jedL);color:var(--jed);border-color:var(--jed)}
+.lb.lM{background:var(--makL);color:var(--mak);border-color:var(--mak)}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.theme-row{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border)}
+.tl{font-size:11px;color:var(--text2);font-weight:600}
+.tls{font-size:9px;color:var(--text3)}
+.tsw{background:var(--bg3);border:1px solid var(--border);border-radius:30px;width:44px;height:24px;position:relative;cursor:pointer;transition:background .3s;flex-shrink:0}
+.tsw.on{background:var(--accent)}
+.tsw::after{content:'';position:absolute;top:3px;right:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:transform .3s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.tsw.on::after{transform:translateX(-20px)}
+.vnote{padding:10px 14px;font-size:9px;color:var(--text4);text-align:center;border-top:1px solid var(--border)}
+/* MAIN */
+.main{padding:22px 24px;min-width:0;overflow-x:hidden}
+.mob-bar{display:none;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;margin:-22px -24px 16px}
+.mob-tit{font-size:13px;font-weight:800;color:var(--text)}
+.mob-btn{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r3);padding:6px 10px;cursor:pointer;color:var(--text);font-size:15px}
+/* PAGE HEADER */
+.ph{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;gap:12px}
+.ph h1{font-size:20px;font-weight:900;color:var(--text);letter-spacing:-.4px}
+.ph p{font-size:11px;color:var(--text3);margin-top:3px}
+.ds{display:flex;gap:5px;flex-wrap:wrap}
+.db{background:var(--card2);color:var(--text3);border:1px solid var(--border);border-radius:var(--r3);padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .15s}
+.db:hover{border-color:var(--border2);color:var(--text2)}
+.db.on{background:var(--amber);color:#fff;border-color:var(--amber);box-shadow:0 2px 8px rgba(217,119,6,.3)}
+/* KPI STRIP */
+.ks{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:11px;margin-bottom:18px}
+.kc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:15px 17px;box-shadow:var(--shadow);position:relative;overflow:hidden;cursor:pointer;transition:all .2s}
+.kc:hover{transform:translateY(-2px);box-shadow:var(--shadow2);border-color:var(--border2)}
+.kc-bar{position:absolute;top:0;right:0;width:4px;height:100%;border-radius:0 var(--r) var(--r) 0}
+.kc-lbl{font-size:9.5px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.9px;margin-bottom:7px}
+.kc-val{font-size:28px;font-weight:900;line-height:1}
+.kc-u{font-size:12px;color:var(--text3);font-weight:600;margin-right:3px}
+.kc-sub{font-size:10px;color:var(--text3);margin-top:4px}
+.kc-type{font-size:9px;color:var(--text4);margin-top:2px;font-style:italic}
+.kc-trend{font-size:10px;margin-top:4px;font-weight:700}
+/* LAYOUT GRIDS */
+.g2{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:14px}
+.g2e{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.gfc{grid-column:1/-1}
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow)}
+.ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:6px}
+.ct{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.8px}
+.cbadge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px}
+/* TABLE */
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+thead th{padding:9px 10px;color:var(--text3);font-weight:700;text-align:right;cursor:pointer;border-bottom:2px solid var(--border2);white-space:nowrap;font-size:10px;text-transform:uppercase;letter-spacing:.4px;user-select:none;transition:color .15s}
+thead th:hover{color:var(--text)}
+tbody td{padding:8px 10px;border-bottom:1px solid var(--border);white-space:nowrap;color:var(--text)}
+tbody tr:hover td{background:var(--bg3)}
+.spill{display:inline-flex;align-items:center;border-radius:20px;padding:2px 9px;font-size:11px;font-weight:700}
+.stpill{border-radius:var(--r4);padding:2px 8px;font-size:10px;font-weight:700}
+.srch{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r3);padding:7px 12px;color:var(--text);font-size:12px;width:185px;direction:rtl;outline:none;transition:border-color .15s}
+.srch:focus{border-color:var(--accent)}
+.srch::placeholder{color:var(--text3)}
+/* PERFORMERS */
+.prow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
+.prow:last-child{border-bottom:none}
+.pname{font-size:12px;font-weight:700}
+.pmeta{font-size:10px;color:var(--text3);margin-top:2px}
+.rnk{font-size:13px;font-weight:900;width:22px;flex-shrink:0;text-align:center}
+/* KPI BARS */
+.kbar{background:var(--card2);border-radius:var(--r2);padding:15px;margin-bottom:10px}
+.kbt{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.kbl{font-size:13px;font-weight:700;color:var(--text)}
+.kbp{font-size:24px;font-weight:900;line-height:1}
+.kbm{font-size:10.5px;color:var(--text3)}
+.prog{background:var(--bg);border-radius:5px;height:9px;overflow:hidden;margin-top:9px}
+.pf{height:100%;border-radius:5px;transition:width .7s cubic-bezier(.4,0,.2,1)}
+/* KPI INFO BOX */
+.kpi-banner{background:linear-gradient(135deg,#b45309 0%,#d97706 50%,#f59e0b 100%);border-radius:var(--r);padding:18px 20px;margin-bottom:16px;color:#fff;box-shadow:0 4px 16px rgba(180,83,9,.3)}
+.kpi-btitle{font-size:15px;font-weight:900;margin-bottom:12px}
+.kpi-bgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kpi-box{background:rgba(255,255,255,.2);border-radius:var(--r2);padding:13px 15px;backdrop-filter:blur(4px)}
+.kpi-boxtitle{font-size:11.5px;font-weight:800;margin-bottom:8px}
+.kpi-item{font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.2)}
+.kpi-item:last-child{border-bottom:none}
+/* BRANCH */
+.bcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow)}
+.bsg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.bst{background:var(--bg3);border-radius:var(--r2);padding:10px 12px}
+.bsl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.bsv{font-size:18px;font-weight:900}
+/* MONTHLY */
+.mcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:14px}
+.mcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow)}
+.mstg{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
+.mst{background:var(--bg3);border-radius:var(--r2);padding:10px 13px}
+.msl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.msv{font-size:18px;font-weight:900}
+/* DETAIL PAGE */
+.det-hero{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.det-back{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--text3);cursor:pointer;margin-bottom:14px;background:none;border:none;padding:0;transition:color .15s}
+.det-back:hover{color:var(--text)}
+.det-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}
+.det-stat{background:var(--bg3);border-radius:var(--r2);padding:12px 14px;border-right:3px solid transparent}
+.det-stat-lbl{font-size:9.5px;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
+.det-stat-val{font-size:22px;font-weight:900}
+/* CAPACITY PAGE */
+.cap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
+.cap-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;box-shadow:var(--shadow)}
+.cap-lbl{font-size:9.5px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.cap-val{font-size:26px;font-weight:900}
+.cap-u{font-size:11px;color:var(--text3);margin-right:3px}
+.cap-sub{font-size:10px;color:var(--text3);margin-top:4px}
+/* UTIL BAR */
+.util-bar{background:var(--bg3);border-radius:5px;height:7px;overflow:hidden;margin-top:7px}
+.util-fill{height:100%;border-radius:5px}
+/* ALERTS */
+.alert{display:flex;align-items:flex-start;gap:10px;background:var(--amberL);border:1px solid var(--amber);border-radius:var(--r2);padding:12px 14px;margin-bottom:12px;font-size:12px}
+.alert-warn{background:var(--redL);border-color:var(--red)}
+.alert-ok{background:var(--greenL);border-color:var(--green)}
+/* TAG */
+.tag{display:inline-flex;align-items:center;border-radius:20px;padding:2px 8px;font-size:10px;font-weight:700;margin:1px}
+/* MISSING BADGE */
+.miss-tag{display:inline-flex;align-items:center;gap:3px;background:var(--amberL);color:var(--amber);border:1px solid rgba(217,119,6,.3);border-radius:4px;padding:1px 6px;font-size:9.5px;font-weight:700;margin:1px}
+/* PAGES */
+.pg{display:none}.pg.show{display:block}
+/* SVG */
+.svc{width:100%;display:block}
+/* RESPONSIVE */
+@media(max-width:940px){
+  .shell{grid-template-columns:1fr}
+  .side{position:fixed;right:-250px;top:0;height:100vh;width:240px;transition:right .25s;box-shadow:var(--shadow2)}
+  .side.open{right:0}
+  .mob-bar{display:flex}
+  .main{padding:12px 14px}
+  .g2,.g2e,.g3{grid-template-columns:1fr}
+  .ks{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+  .kpi-bgrid{grid-template-columns:1fr}
+}
+.ds{display:flex;gap:4px;overflow-x:auto;padding-bottom:6px;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+.ds::-webkit-scrollbar{height:4px}
+.ds::-webkit-scrollbar-thumb{background:var(--border2,#c4ccdf);border-radius:4px}
+.db-group{font-size:9px;font-weight:700;color:var(--text4,#99aac6);letter-spacing:1px;text-transform:uppercase;white-space:nowrap;padding:0 4px;align-self:center;flex-shrink:0;border-right:1px solid var(--border,#d8dff0);padding-right:8px;margin-right:4px}
+</style>
+</head>
+<body>
+
+<div id="loading" style="position:fixed;inset:0;background:var(--bg,#f0f3f9);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:12px;font-family:'Segoe UI',sans-serif;direction:rtl">
+  <div id="lspinner" style="width:44px;height:44px;border:4px solid #dde4f0;border-top-color:#1a56db;border-radius:50%;animation:lspin .9s linear infinite"></div>
+  <div id="ltxt" style="font-size:14px;font-weight:700;color:#1a2236">جاري تحميل البيانات...</div>
+  <div style="font-size:11px;color:#8896b3">لوحة تحكم أداء موظفين مركز الاتصال</div>
+  <style>@keyframes lspin{to{transform:rotate(360deg)}}</style>
+</div>
+
+<div id="loading" style="position:fixed;inset:0;background:var(--bg,#f0f3f9);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:12px;font-family:'Segoe UI',sans-serif">
+  <div id="load-spinner" style="width:44px;height:44px;border:4px solid #e2e6ef;border-top-color:#1a56db;border-radius:50%;animation:spin 1s linear infinite"></div>
+  <div id="load-text" style="font-size:14px;font-weight:700;color:#4a5568">جاري تحميل البيانات...</div>
+  <div id="load-sub" style="font-size:11px;color:#8896b3">لوحة تحكم أداء موظفين مركز الاتصال</div>
+  <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+</div>
+<div class="shell">
+
+<!-- SIDEBAR -->
+<aside class="side" id="sb">
+  <div class="logo-area">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.26h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+    <div class="logo-title">لوحة تحكم أداء موظفين<br/>مركز الاتصال</div>
+    <div class="logo-sub">إمداد &amp; تمهير · 18 أبريل — 30 مايو 2025</div>
+  </div>
+  <nav>
+    <div class="ns">الرئيسية</div>
+    <button class="ni on" data-nav="ov"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>نظرة عامة</button>
+    <button class="ni" data-nav="emp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>الموظفون<span class="nb" id="emp-nb">—</span></button>
+    <button class="ni" data-nav="cmp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>مقارنة الفروع</button>
+    <button class="ni" data-nav="kpi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>مؤشرات الأداء KPI</button>
+    <button class="ni" data-nav="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>الطاقة والكفاءة</button>
+    <button class="ni" data-nav="mon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>الملخص الشهري</button>
+  </nav>
+  <div class="si-bottom">
+    <div class="loc-area">
+      <div class="loc-sec">الفرع</div>
+      <button class="lb lA" data-loc="all"><div class="dot" style="background:var(--accent)"></div>الكل</button>
+      <button class="lb" data-loc="J"><div class="dot" style="background:var(--jed)"></div>جدة</button>
+      <button class="lb" data-loc="M"><div class="dot" style="background:var(--mak)"></div>مكة</button>
+    </div>
+    <div class="theme-row">
+      <div><div class="tl">الوضع الليلي</div><div class="tls">Dark Mode</div></div>
+      <div class="tsw" id="tsw" id="tsw"></div>
+    </div>
+    <div class="vnote">2,888 سجل · 33 يوم · جدة &amp; مكة<br/>آخر تحديث: 30 مايو 2025</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="mob-bar"><div class="mob-tit" id="mob-tit">نظرة عامة</div><button class="mob-btn" id="mob-btn">☰</button></div>
+
+  <div class="ph"><div><h1 id="ph1">نظرة عامة</h1><p id="ph2">مؤشرات الأداء الرئيسية — اضغط على أي بطاقة لعرض تفاصيلها</p></div><div class="ds" id="dbar"></div></div>
+  <div class="ks" id="krow"></div>
+
+  <!-- OVERVIEW -->
+  <div id="pg-ov" class="pg show">
+    <div class="g2 gap14" style="margin-bottom:14px">
+      <div class="card"><div class="ch"><span class="ct">تطور الأداء — آخر 14 يوم</span><span class="cbadge" style="background:var(--greenL);color:var(--green)">متوسط يومي</span></div><div id="ch-trend"></div></div>
+      <div class="card"><div class="ch"><span class="ct" id="dist-ttl">توزيع الدرجات النهائية</span><span class="cbadge" style="background:var(--accentL);color:var(--accent)">إجمالي الموظفين</span></div><div id="ch-dist-wrap" style="display:flex;align-items:center;gap:14px"><div id="ch-donut"></div><div id="dist-leg" style="flex:1;min-width:0"></div></div></div>
+    </div>
+    <div class="g2e gap14" style="margin-bottom:14px">
+      <div class="card"><div class="ch"><span class="ct">متوسط المكالمات اليومي</span><span class="cbadge" style="background:var(--jedL);color:var(--jed)">متوسط لكل موظف</span></div><div id="ch-calls"></div><div id="ch-calls-names" style="margin-top:8px;font-size:10px;color:var(--text3)"></div></div>
+      <div class="card"><div class="ch"><span class="ct">موظفون بتقصير زمني يومياً</span><span class="cbadge" style="background:var(--redL);color:var(--red)">عدد الموظفين</span></div><div id="ch-sf"></div><div id="ch-sf-names" style="margin-top:8px;max-height:80px;overflow-y:auto"></div></div>
+    </div>
+    <div class="card"><div class="ch"><span class="ct">مدة المكالمة الأطول (AHT أكثر من 3 دقائق)</span><span class="cbadge" style="background:var(--amberL);color:var(--amber)">بالاسم — متوسط الموظف</span></div><div id="ch-aht"></div></div>
+  </div>
+
+  <!-- EMPLOYEES -->
+  <div id="pg-emp" class="pg">
+    <div class="g2e gap14" style="margin-bottom:14px">
+      <div class="card"><div class="ch"><span class="ct" style="color:var(--gold)">🏆 الأعلى أداءً — بالدرجة النهائية</span></div><div id="top-p"></div></div>
+      <div class="card"><div class="ch"><span class="ct" style="color:var(--red)">⚠ يحتاجون متابعة — درجة نهائية أقل من 85%</span></div><div id="bot-p"></div></div>
+    </div>
+    <div class="card">
+      <div class="ch" style="flex-wrap:wrap;gap:8px">
+        <span class="ct" id="emp-tit">كشف الموظفين الكامل</span>
+        <input class="srch" id="emp-s" placeholder="بحث بالاسم..." oninput="rET()"/>
+      </div>
+      <div class="tw"><table>
+        <thead><tr>
+          <th data-sort="n">الموظف</th><th data-sort="l">الفرع</th><th data-sort="s">الحالة</th>
+          <th data-sort="wh">ساعات العمل</th><th data-sort="c">مكالمات مستلمة</th>
+          <th data-sort="ah">متوسط مدة المكالمة</th><th data-sort="cs">CSAT</th>
+          <th data-sort="sm">تقصير (د)</th><th data-sort="sc">الدرجة النهائية ▾</th>
+          <th>ملاحظات / بيانات ناقصة</th>
+        </tr></thead>
+        <tbody id="emp-body"></tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- COMPARISON -->
+  <div id="pg-cmp" class="pg">
+    <div class="g2e gap14" style="margin-bottom:14px">
+      <div class="card"><div class="ch"><span class="ct" id="cmp-ttl">جدة مقابل مكة — مؤشرات يومية</span></div><div id="ch-cmp"></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px" id="brcards"></div>
+    </div>
+    <div class="card"><div class="ch"><span class="ct" id="d2-ttl">توزيع الدرجات النهائية — جدة مقابل مكة</span></div><div id="ch-d2"></div></div>
+  </div>
+
+  <!-- KPI PAGE -->
+  <div id="pg-kpi" class="pg">
+    <div class="kpi-banner">
+      <div class="kpi-btitle">مؤشرات الأداء الرئيسية (KPIs) — معايير التقييم</div>
+      <div class="kpi-bgrid">
+        <div class="kpi-box"><div class="kpi-boxtitle">مجموعة 10 ساعات</div>
+          <div class="kpi-item">الحد الأدنى للمكالمات المستلمة: <b>30 مكالمة / يوم</b></div>
+          <div class="kpi-item">التقصير الزمني المسموح: <b>0 دقيقة</b></div>
+          <div class="kpi-item">رضا العملاء CSAT: <b>100%</b></div>
+          <div class="kpi-item">الدرجة النهائية المطلوبة: <b>≥ 90%</b></div>
+        </div>
+        <div class="kpi-box"><div class="kpi-boxtitle">مجموعة 8 ساعات</div>
+          <div class="kpi-item">الحد الأدنى للمكالمات المستلمة: <b>24 مكالمة / يوم</b></div>
+          <div class="kpi-item">التقصير الزمني المسموح: <b>0 دقيقة</b></div>
+          <div class="kpi-item">رضا العملاء CSAT: <b>100%</b></div>
+          <div class="kpi-item">الدرجة النهائية المطلوبة: <b>≥ 90%</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="g2e gap14" id="kpi-bars"></div>
+    <div class="card" style="margin-top:14px"><div class="ch"><span class="ct">تطور الامتثال لمؤشرات الأداء — آخر 14 يوم</span><span class="cbadge" style="background:var(--accentL);color:var(--accent)">% من الموظفين الحاضرين</span></div><div id="ch-kt"></div></div>
+    <div class="card" style="margin-top:14px">
+      <div class="ch"><span class="ct" style="color:var(--amber)">💡 مؤشرات مقترحة إضافية</span></div>
+      <div id="kpi-suggested"></div>
+    </div>
+  </div>
+
+  <!-- CAPACITY PAGE -->
+  <div id="pg-cap" class="pg">
+    <div class="cap-grid" id="cap-kpis"></div>
+    <div class="card" style="margin-bottom:14px">
+      <div class="ch"><span class="ct">الطاقة التشغيلية اليومية — ساعات متاحة vs مكالمات</span><span class="cbadge" style="background:var(--cyanL);color:var(--cyan)">إجمالي يومي</span></div>
+      <div id="ch-cap"></div>
+    </div>
+    <div class="g2e gap14" style="margin-bottom:14px">
+      <div class="card"><div class="ch"><span class="ct">نسبة الاستغلال اليومية</span><span class="cbadge" style="background:var(--amberL);color:var(--amber)">(مكالمات × متوسط AHT) ÷ ساعات متاحة</span></div><div id="ch-util"></div></div>
+      <div class="card"><div class="ch"><span class="ct">معدل الغياب اليومي</span><span class="cbadge" style="background:var(--redL);color:var(--red)">% من إجمالي الفريق</span></div><div id="ch-abs"></div></div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ct" style="color:var(--cyan)">🔋 تحليل طاقة الفريق والكفاءة التشغيلية</span></div>
+      <div id="cap-analysis"></div>
+    </div>
+  </div>
+
+  <!-- MONTHLY -->
+  <div id="pg-mon" class="pg">
+    <div class="mcards" id="mon-cards"></div>
+    <div class="g2e gap14">
+      <div class="card"><div class="ch"><span class="ct">تطور الأداء الكامل — أبريل ومايو 2025</span><span class="cbadge" style="background:var(--accentL);color:var(--accent)">متوسط يومي</span></div><div id="ch-ft"></div></div>
+      <div class="card"><div class="ch"><span class="ct">جدة مقابل مكة — الدرجة النهائية اليومية</span><span class="cbadge" style="background:var(--accentL);color:var(--accent)">متوسط الفرع</span></div><div id="ch-bt"></div></div>
+    </div>
+  </div>
+
+  <!-- DETAIL PAGES -->
+  <div id="pg-det-att" class="pg"><div id="det-att-content"></div></div>
+  <div id="pg-det-score" class="pg"><div id="det-score-content"></div></div>
+  <div id="pg-det-csat" class="pg"><div id="det-csat-content"></div></div>
+  <div id="pg-det-calls" class="pg"><div id="det-calls-content"></div></div>
+  <div id="pg-det-below" class="pg"><div id="det-below-content"></div></div>
+  <div id="pg-det-sf" class="pg"><div id="det-sf-content"></div></div>
+
+</main>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════════
+//  GLOBAL STATE — في النطاق العام حتى تعمل جميع onclick handlers
+// ══════════════════════════════════════════════════════════════════
+var DATES=[], TA=[], TJ=[], TM=[], RECS=[];
+var D='30-مايو', L='all', PG='ov', ES='sc', ED=-1;
+var isDark=window.matchMedia('(prefers-color-scheme:dark)').matches;
+
+// ══════════════════════════════════════════════════════════════════
+//  APP FUNCTIONS
+// ══════════════════════════════════════════════════════════════════
+
+
+// THEME
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme',isDark?'dark':'light');
+  document.getElementById('tsw').classList.toggle('on',isDark);
+  setTimeout(rCurPage,50);
+}
+function toggleTheme(){isDark=!isDark;applyTheme();}
+
+// COLOR HELPERS
+function gv(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+function scC(v){if(v==null)return gv('--text3');if(v>=0.99)return gv('--green');if(v>=0.9)return gv('--accent');if(v>=0.85)return gv('--cyan');if(v>=0.7)return gv('--amber');return gv('--red');}
+function scBg(v){if(v==null)return'transparent';if(v>=0.99)return gv('--greenL');if(v>=0.9)return gv('--accentL');if(v>=0.85)return gv('--cyanL');if(v>=0.7)return gv('--amberL');return gv('--redL');}
+function pill(v,lbl){
+  if(v==null)return`<span style="color:var(--text3);font-size:11px">—</span>`;
+  const c=scC(v),b=scBg(v);
+  return`<span class="spill" style="background:${b};color:${c}">${lbl||((v*100).toFixed(0)+'%')}</span>`;
+}
+function getTrend(){return L==='J'?TJ:L==='M'?TM:TA;}
+function fR(dt,lc){let r=RECS.filter(x=>x.d===dt);if(lc!=='all')r=r.filter(x=>x.l===lc);return r;}
+
+// STATS
+function stats(recs){
+  const p=recs.filter(r=>r.s===1),ab=recs.length-p.length;
+  const ws=p.filter(r=>r.sc!=null),wc=p.filter(r=>r.c!=null),wa=p.filter(r=>r.ah!=null&&r.ah>0);
+  const asc=ws.length?ws.reduce((a,r)=>a+r.sc,0)/ws.length*100:0;
+  const aca=wc.length?wc.reduce((a,r)=>a+r.c,0)/wc.length:0;
+  const aah=wa.length?wa.reduce((a,r)=>a+r.ah,0)/wa.length:0;
+  const csOk=ws.filter(r=>r.cs===1).length,s100=ws.filter(r=>r.sc>=0.99).length;
+  const sf=p.filter(r=>r.sm>0).length;
+  const cap=p.reduce((a,r)=>a+(r.wh||0),0);
+  const tc=wc.reduce((a,r)=>a+(r.c||0),0);
+  const b85=ws.filter(r=>r.sc<0.85).length;
+  const aht3=wa.filter(r=>r.ah>3).length;
+  const totSfMin=p.reduce((a,r)=>a+(r.sm||0),0);
+  return{tot:recs.length,pr:p.length,ab,
+    att:recs.length?p.length/recs.length*100:0,
+    asc,aca,aah,totCa:tc,
+    csR:ws.length?csOk/ws.length*100:0,
+    s1R:ws.length?s100/ws.length*100:0,
+    s100,b90:ws.filter(r=>r.sc<0.9).length,
+    b85,sf,cap,aht3,totSfMin,
+    wsCount:ws.length,wcCount:wc.length};
+}
+
+// SVG LINE
+function svgLine(id,datasets,labels,opts){
+  const el=document.getElementById(id);if(!el)return;
+  opts=opts||{};
+  const W=opts.w||560,H=opts.h||185,PL=36,PR=14,PT=26,PB=30;
+  const cW=W-PL-PR,cH=H-PT-PB,n=labels.length;
+  if(!n)return;
+  const allV=datasets.flatMap(ds=>ds.data.filter(v=>v!=null));
+  if(!allV.length)return;
+  const yMin=opts.yMin??Math.floor(Math.min(...allV)/10)*10;
+  const yMax=opts.yMax??Math.ceil(Math.max(...allV)/10)*10+5;
+  const yR=yMax-yMin||1;
+  const px=i=>PL+i/Math.max(1,n-1)*cW;
+  const py=v=>PT+cH-(v-yMin)/yR*cH;
+  const gc=isDark?'rgba(37,53,87,.8)':'rgba(216,223,240,.8)';
+  const tc=isDark?gv('--text3'):gv('--text4');
+  const ys=opts.yStep||(yMax-yMin>60?20:10);
+  let s=`<svg viewBox="0 0 ${W} ${H}" class="svc" style="height:${H}px">`;
+  for(let y=yMin;y<=yMax;y+=ys){
+    const yp=py(y).toFixed(1);
+    s+=`<line x1="${PL}" y1="${yp}" x2="${W-PR}" y2="${yp}" stroke="${gc}" stroke-width="1"/>`;
+    s+=`<text x="${PL-6}" y="${(+yp+3.5).toFixed(1)}" text-anchor="end" font-size="9" fill="${tc}">${y}</text>`;
+  }
+  const st=Math.ceil(n/12);
+  for(let i=0;i<n;i+=st)s+=`<text x="${px(i).toFixed(1)}" y="${H-6}" text-anchor="middle" font-size="9" fill="${tc}">${labels[i]}</text>`;
+  for(const ds of datasets){
+    const pts=ds.data.map((v,i)=>v!=null?[px(i).toFixed(2),py(v).toFixed(2)]:null);
+    let d='',pen=false;
+    for(let i=0;i<pts.length;i++){if(pts[i]){d+=pen?`L${pts[i][0]},${pts[i][1]}`:`M${pts[i][0]},${pts[i][1]}`;pen=true;}else pen=false;}
+    if(d)s+=`<path d="${d}" fill="none" stroke="${ds.color}" stroke-width="${ds.w||2}" stroke-linejoin="round" stroke-linecap="round"/>`;
+    if(ds.dots)for(let i=0;i<pts.length;i++)if(pts[i])s+=`<circle cx="${pts[i][0]}" cy="${pts[i][1]}" r="3.5" fill="${ds.color}" stroke="var(--card)" stroke-width="1.5"/>`;
+  }
+  let lx=PL;
+  for(const ds of datasets){
+    s+=`<rect x="${lx}" y="7" width="20" height="5" rx="2.5" fill="${ds.color}"/>`;
+    s+=`<text x="${lx+24}" y="${14}" font-size="9.5" fill="${tc}">${ds.label}</text>`;
+    lx+=ds.label.length*6+32;
+  }
+  s+='</svg>';el.innerHTML=s;
+}
+
+// SVG BAR (with optional labels on bars)
+function svgBar(id,labels,datasets,opts){
+  const el=document.getElementById(id);if(!el)return;
+  opts=opts||{};
+  const W=opts.w||540,H=opts.h||155,PL=30,PR=10,PT=24,PB=32;
+  const cW=W-PL-PR,cH=H-PT-PB,n=labels.length,nd=datasets.length;
+  const gW=cW/n,gPad=Math.min(6,gW*.1),bGap=2;
+  const bW=Math.max(3,(gW-gPad*2-bGap*(nd-1))/nd);
+  const allV=datasets.flatMap(ds=>ds.data.filter(v=>v!=null&&!isNaN(v)));
+  if(!allV.length)return;
+  const mx=Math.ceil(Math.max(...allV)/10)*10||10;
+  const py=v=>PT+cH-Math.max(0,v)/mx*cH;
+  const gc=isDark?'rgba(37,53,87,.8)':'rgba(216,223,240,.8)';
+  const tc=isDark?gv('--text3'):gv('--text4');
+  let s=`<svg viewBox="0 0 ${W} ${H}" class="svc" style="height:${H}px">`;
+  const ys=Math.ceil(mx/4/10)*10||10;
+  for(let y=0;y<=mx;y+=ys){
+    const yp=py(y).toFixed(1);
+    s+=`<line x1="${PL}" y1="${yp}" x2="${W-PR}" y2="${yp}" stroke="${gc}" stroke-width="1"/>`;
+    s+=`<text x="${PL-4}" y="${(+yp+3.5).toFixed(1)}" text-anchor="end" font-size="9" fill="${tc}">${y}</text>`;
+  }
+  for(let i=0;i<n;i++){
+    const gX=PL+i*gW+gPad;
+    for(let j=0;j<nd;j++){
+      const v=datasets[j].data[i]||0;
+      const bX=(gX+j*(bW+bGap)).toFixed(1);
+      const bH=Math.max(2,Math.max(0,v)/mx*cH);
+      const bY=py(v).toFixed(1);
+      s+=`<rect x="${bX}" y="${bY}" width="${bW.toFixed(1)}" height="${bH.toFixed(1)}" rx="3" fill="${datasets[j].color}" opacity=".88"/>`;
+      if(opts.showVals&&v>0)s+=`<text x="${(+bX+bW/2).toFixed(1)}" y="${(+bY-3).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="${datasets[j].color}" font-weight="700">${v%1===0?v:v.toFixed(1)}</text>`;
+    }
+    const cx=(gX+nd*(bW+bGap)/2).toFixed(1);
+    // Rotate label if long
+    if(opts.rotateLabels){
+      s+=`<text x="${cx}" y="${H-4}" text-anchor="end" font-size="8.5" fill="${tc}" transform="rotate(-35,${cx},${H-4})">${labels[i]}</text>`;
+    } else {
+      s+=`<text x="${cx}" y="${H-6}" text-anchor="middle" font-size="9" fill="${tc}">${labels[i]}</text>`;
+    }
+  }
+  if(nd>1){let lx=PL;for(const ds of datasets){s+=`<rect x="${lx}" y="6" width="14" height="10" rx="3" fill="${ds.color}" opacity=".88"/>`;s+=`<text x="${lx+18}" y="15" font-size="9.5" fill="${tc}">${ds.label}</text>`;lx+=ds.label.length*6+26;}}
+  s+='</svg>';el.innerHTML=s;
+}
+
+// SVG DONUT
+function svgDonut(id,data,labels,colors){
+  const el=document.getElementById(id);if(!el)return;
+  const S=136,R=52,r=30,cx=S/2,cy=S/2;
+  const tot=data.reduce((a,b)=>a+b,0)||1;
+  let s=`<svg viewBox="0 0 ${S} ${S}" style="width:${S}px;height:${S}px;flex-shrink:0">`;
+  let angle=-Math.PI/2;
+  for(let i=0;i<data.length;i++){
+    if(!data[i])continue;
+    const sw=data[i]/tot*2*Math.PI;
+    const x1=(cx+R*Math.cos(angle)).toFixed(2),y1=(cy+R*Math.sin(angle)).toFixed(2);
+    const x2=(cx+R*Math.cos(angle+sw)).toFixed(2),y2=(cy+R*Math.sin(angle+sw)).toFixed(2);
+    const x3=(cx+r*Math.cos(angle+sw)).toFixed(2),y3=(cy+r*Math.sin(angle+sw)).toFixed(2);
+    const x4=(cx+r*Math.cos(angle)).toFixed(2),y4=(cy+r*Math.sin(angle)).toFixed(2);
+    s+=`<path d="M${x1},${y1} A${R},${R} 0 ${sw>Math.PI?1:0},1 ${x2},${y2} L${x3},${y3} A${r},${r} 0 ${sw>Math.PI?1:0},0 ${x4},${y4} Z" fill="${colors[i]}"/>`;
+    angle+=sw;
+  }
+  const tc=isDark?gv('--text'):gv('--text'),ts=isDark?gv('--text3'):gv('--text3');
+  s+=`<text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="15" font-weight="900" fill="${tc}">${Math.round(data[0]/tot*100)}%</text>`;
+  s+=`<text x="${cx}" y="${cy+12}" text-anchor="middle" font-size="8.5" fill="${ts}">من الإجمالي</text>`;
+  s+='</svg>';el.innerHTML=s;
+}
+
+// RENDER DATES
+function rDates(){
+  var bar=document.getElementById('dbar');
+  if(!bar)return;
+  var h='',lastMonth='';
+  for(var i=0;i<DATES.length;i++){
+    var dt=DATES[i];
+    var month=dt.indexOf('مايو')>=0?'مايو':'أبريل';
+    if(month!==lastMonth){h+='<span class="db-group">'+month+'</span>';lastMonth=month;}
+    var label=dt.replace('-مايو','').replace('-أبريل','');
+    var cls='db'+(dt===D?' on':'');
+    h+='<button class="'+cls+'" data-date="'+dt+'">'+label+'</button>';
+  }
+  bar.innerHTML=h;
+  bar.onclick=function(e){
+    var btn=e.target.closest('[data-date]');
+    if(btn){setDate(btn.getAttribute('data-date'));}
+  };
+  setTimeout(function(){
+    var btns=bar.querySelectorAll('[data-date]');
+    for(var i=0;i<btns.length;i++){
+      if(btns[i].getAttribute('data-date')===D){
+        btns[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+        break;
+      }
+    }
+  },50);
+}
+
+// RENDER KPI STRIP
+function rKPIs(){
+  const s=stats(fR(D,L));
+  const idx=DATES.indexOf(D);
+  const ps=idx>0?stats(fR(DATES[idx-1],L)):null;
+  const tr=(c,p,unit)=>{if(!ps||p==null)return'';const diff=c-p;const pct=diff.toFixed(1);return`<div class="kc-trend" style="color:${diff>=0?'var(--green)':'var(--red)'}">${diff>=0?'▲':'▼'} ${Math.abs(pct)}${unit||'%'} مقارنة بالأمس</div>`;};
+  document.getElementById('emp-nb').textContent=s.pr;
+  const K=[
+    {id:'att',l:'معدل الحضور',t:'% من إجمالي الفريق',v:s.att.toFixed(0),u:'%',sub:`${s.pr} حاضر · ${s.ab} غائب`,c:s.att>=90?'--green':s.att>=80?'--amber':'--red',tl:tr(s.att,ps?.att)},
+    {id:'score',l:'متوسط الدرجة النهائية',t:'متوسط لجميع الموظفين الحاضرين',v:s.asc.toFixed(1),u:'%',sub:`${s.s100} موظف بدرجة كاملة (${s.wsCount} مُقيَّم)`,c:s.asc>=90?'--green':s.asc>=85?'--accent':'--amber',tl:tr(s.asc,ps?.asc)},
+    {id:'csat',l:'CSAT 100%',t:'نسبة من الموظفين المُقيَّمين',v:s.csR.toFixed(0),u:'%',sub:`رضا عملاء كامل — من ${s.wsCount} موظف`,c:s.csR>=80?'--green':s.csR>=65?'--amber':'--red'},
+    {id:'calls',l:'متوسط المكالمات المستلمة',t:'متوسط لكل موظف يومياً',v:s.aca.toFixed(0),u:'مكالمة',sub:`${s.totCa.toLocaleString()} إجمالي · ${s.wcCount} موظف`,c:'--accent',tl:tr(s.aca,ps?.aca,'')},
+    {id:'below',l:'يحتاجون متابعة',t:'درجة نهائية أقل من 85%',v:s.b85,u:'موظف',sub:`(${s.wsCount} مُقيَّم — ${s.wsCount?((s.b85/s.wsCount)*100).toFixed(0):'0'}% من المُقيَّمين)`,c:s.b85>10?'--red':s.b85>5?'--amber':'--green'},
+    {id:'sf',l:'تقصير زمني',t:'عدد الموظفين بدقائق تقصير',v:s.sf,u:'موظف',sub:`إجمالي ${s.totSfMin.toFixed(0)} دقيقة تقصير`,c:s.sf>8?'--red':s.sf>3?'--amber':'--green'},
+  ];
+  document.getElementById('krow').innerHTML=K.map(k=>`
+    <div class="kc" data-kpi="${k.id}">
+      <div class="kc-bar" style="background:var(${k.c})"></div>
+      <div class="kc-lbl">${k.l}</div>
+      <div style="display:flex;align-items:flex-end;gap:3px"><span class="kc-val" style="color:var(${k.c})">${k.v}</span><span class="kc-u">${k.u}</span></div>
+      <div class="kc-sub">${k.sub||''}</div>
+      <div class="kc-type">${k.t}</div>
+      ${k.tl||''}
+    </div>`).join('');
+}
+
+// OVERVIEW
+function rOv(){
+  const tr=getTrend(),last14=DATES.slice(-14);
+  const td=last14.map(d=>tr.find(t=>t.d===d)||{});
+  const lbl=last14.map(d=>d.replace('-مايو','/5').replace('-أبريل','/4'));
+  const G=gv('--green'),A=gv('--accent'),AM=gv('--amber'),R=gv('--red'),C=gv('--cyan');
+  svgLine('ch-trend',[
+    {label:'الدرجة النهائية %',data:td.map(t=>t.sc||null),color:A,w:2.5,dots:true},
+    {label:'CSAT 100%',data:td.map(t=>t.cr||null),color:G,w:2},
+    {label:'الحضور %',data:td.map(t=>t.at||null),color:AM,w:1.5},
+  ],lbl,{yMin:50,yMax:105,h:195,w:580});
+
+  const recs=fR(D,L),ws=recs.filter(r=>r.s===1&&r.sc!=null);
+  const dist=[ws.filter(r=>r.sc>=0.99).length,ws.filter(r=>r.sc>=0.9&&r.sc<0.99).length,ws.filter(r=>r.sc>=0.85&&r.sc<0.9).length,ws.filter(r=>r.sc>=0.7&&r.sc<0.85).length,ws.filter(r=>r.sc<0.7).length];
+  const dc=[G,A,C,AM,R],dn=['100%','90–99%','85–89%','70–84%','أقل 70%'];
+  document.getElementById('dist-ttl').textContent=`توزيع الدرجات النهائية — ${D} (${ws.length} موظف مُقيَّم)`;
+  svgDonut('ch-donut',dist,dn,dc);
+  document.getElementById('dist-leg').innerHTML=dn.map((l,i)=>`
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:${i<4?'1px solid var(--border)':'none'}">
+      <div style="display:flex;align-items:center;gap:7px"><div style="width:9px;height:9px;border-radius:2px;background:${dc[i]}"></div><span style="font-size:11px;color:var(--text2)">${l}</span></div>
+      <div style="display:flex;align-items:center;gap:6px"><span style="color:${dc[i]};font-weight:900;font-size:15px">${dist[i]}</span><span style="color:var(--text4);font-size:10px">${ws.length?((dist[i]/ws.length)*100).toFixed(0)+'%':''}</span></div>
+    </div>`).join('');
+
+  // Calls chart with values
+  svgBar('ch-calls',lbl,[{label:'متوسط المكالمات',data:td.map(t=>t.ca?+t.ca.toFixed(1):0),color:A}],{h:145,showVals:true});
+  const curDay=td[td.length-1]||{};
+  document.getElementById('ch-calls-names').textContent=curDay.ca?`المعدل اليومي في ${D}: ${(+curDay.ca).toFixed(1)} مكالمة · إجمالي: ${curDay.tc||0} مكالمة`:'';
+
+  // Shortfall by day with names
+  svgBar('ch-sf',lbl,[{label:'موظفون بتقصير',data:td.map(t=>t.sh||0),color:R}],{h:145,showVals:true});
+  const sfToday=recs.filter(r=>r.s===1&&r.sm>0).sort((a,b)=>b.sm-a.sm);
+  document.getElementById('ch-sf-names').innerHTML=sfToday.length?sfToday.map(r=>`<span style="display:inline-flex;align-items:center;gap:3px;background:var(--redL);color:var(--red);border-radius:4px;padding:2px 6px;font-size:10px;font-weight:700;margin:2px">${r.n.split(' ').slice(0,2).join(' ')} ${r.sm.toFixed(0)}د</span>`).join(''):`<span style="color:var(--green);font-size:11px;font-weight:700">✓ لا يوجد تقصير في ${D}</span>`;
+
+  // AHT > 3 min
+  const ahtRecs=recs.filter(r=>r.s===1&&r.ah&&r.ah>3).sort((a,b)=>b.ah-a.ah);
+  if(ahtRecs.length){
+    svgBar('ch-aht',ahtRecs.slice(0,12).map(r=>r.n.split(' ').slice(0,2).join(' ')),[{label:'مدة المكالمة (دقيقة)',data:ahtRecs.slice(0,12).map(r=>+r.ah.toFixed(2)),color:AM}],{h:150,showVals:true,rotateLabels:true});
+  } else {
+    document.getElementById('ch-aht').innerHTML=`<div style="padding:20px;text-align:center;color:var(--green);font-weight:700">✓ لا يوجد موظف بمدة مكالمة تتجاوز 3 دقائق في ${D}</div>`;
+  }
+}
+
+// EMPLOYEES
+function rEmp(){
+  const recs=fR(D,L);
+  const pr=recs.filter(r=>r.s===1&&r.sc!=null).sort((a,b)=>(b.sc||0)-(a.sc||0));
+  const bw=recs.filter(r=>r.s===1&&r.sc!=null&&r.sc<0.85).sort((a,b)=>(a.sc||0)-(b.sc||0));
+  document.getElementById('top-p').innerHTML=pr.slice(0,7).map((r,i)=>`
+    <div class="prow">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="rnk" style="color:${i<3?'var(--gold)':'var(--text3)'}">${i+1}</span>
+        <div>
+          <div class="pname">${r.n}</div>
+          <div class="pmeta" style="color:${r.l==='J'?'var(--jed)':'var(--mak)'}">
+            ${r.l==='J'?'جدة':'مكة'} · ${r.c!=null?r.c:'—'} مكالمة مستلمة · CSAT ${r.cs!=null?(r.cs*100).toFixed(0)+'%':'—'} · AHT ${r.ah!=null?r.ah.toFixed(1)+'د':'—'}
+          </div>
+        </div>
+      </div>
+      ${pill(r.sc)}
+    </div>`).join('')||'<div style="color:var(--text3);padding:12px;font-size:11px">لا توجد بيانات مُقيَّمة</div>';
+
+  document.getElementById('bot-p').innerHTML=bw.slice(0,7).map(r=>{
+    const st=r.st===1?30:24;
+    const reasons=[];
+    if(r.c!=null&&r.c<st)reasons.push(`مكالمات قليلة (${r.c}/${st})`);
+    if(r.sm>0)reasons.push(`تقصير ${r.sm.toFixed(0)}د`);
+    if(r.cs!=null&&r.cs<0.8)reasons.push(`CSAT منخفض (${(r.cs*100).toFixed(0)}%)`);
+    if(r.ah!=null&&r.ah>3)reasons.push(`AHT مرتفع (${r.ah.toFixed(1)}د)`);
+    if(r.wh!=null&&r.wh<(r.st===1?9.5:7.5))reasons.push(`ساعات عمل قصيرة (${r.wh.toFixed(1)}h)`);
+    return`<div class="prow">
+      <div>
+        <div class="pname">${r.n}</div>
+        <div class="pmeta" style="color:${r.l==='J'?'var(--jed)':'var(--mak)'}">${r.l==='J'?'جدة':'مكة'}</div>
+        <div style="margin-top:3px;display:flex;flex-wrap:wrap;gap:3px">
+          ${reasons.length?reasons.map(rx=>`<span class="tag" style="background:var(--redL);color:var(--red)">${rx}</span>`).join(''):'<span style="color:var(--text3);font-size:10px">السبب غير محدد في البيانات</span>'}
+        </div>
+      </div>
+      ${pill(r.sc)}
+    </div>`;}).join('')||'<div style="color:var(--green);padding:12px;font-size:11px;font-weight:700">✓ لا يوجد موظفون تحت 85%</div>';
+
+  document.getElementById('emp-tit').textContent=`كشف الموظفين — ${D} (${recs.length} موظف)`;
+  rET();
+}
+
+function rET(){
+  const recs=fR(D,L),q=document.getElementById('emp-s').value;
+  let rows=q?recs.filter(r=>r.n.includes(q)):[...recs];
+  rows.sort((a,b)=>{
+    const f=r=>ES==='sc'?r.sc??-1:ES==='c'?r.c??-1:ES==='cs'?r.cs??-1:ES==='sm'?r.sm??0:ES==='ah'?r.ah??0:r.wh??0;
+    return ED*(f(b)-f(a));
+  });
+  const km=r=>r.st===1?30:24;
+  const G=gv('--green'),R=gv('--red'),AM=gv('--amber'),C=gv('--cyan');
+  document.getElementById('emp-body').innerHTML=rows.map(r=>{
+    const noteCell=r.nt?`<span style="font-size:10px;color:var(--text2);max-width:150px;display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.nt}">${r.nt}</span>`:'';
+    const missCell=r.ms?r.ms.split(',').filter(Boolean).map(m=>`<span class="miss-tag">⚠ ${m}</span>`).join(''):'';
+    const notesFull=[noteCell,missCell].filter(Boolean).join(' ');
+    return`<tr>
+      <td style="font-weight:700">${r.n}${r.sv?`<br/><span style="font-size:9.5px;color:var(--text3)">${r.sv}</span>`:''}  </td>
+      <td style="color:${r.l==='J'?'var(--jed)':'var(--mak)'};font-weight:700">${r.l==='J'?'جدة':'مكة'}</td>
+      <td><span class="stpill" style="background:${r.s?G:R}20;color:${r.s?G:R}">${r.s?'حاضر':'غائب'}</span></td>
+      <td style="color:${r.wh!=null?(r.wh>=(r.st===1?9.5:7.5)?'var(--green)':'var(--amber)'):'var(--text3)'}">${r.wh?r.wh.toFixed(1)+'h':'—'}</td>
+      <td style="color:${r.c!=null?(r.c>=km(r)?G:AM):'var(--text3)'};font-weight:${r.c!=null?700:400}">${r.c!=null?r.c:'—'}</td>
+      <td style="color:${r.ah!=null?(r.ah>3?R:r.ah>2?AM:G):'var(--text3)'}">${r.ah!=null?r.ah.toFixed(1)+'د':'—'}</td>
+      <td style="color:${r.cs!=null?(r.cs===1?G:r.cs>=0.8?AM:R):'var(--text3)'};font-weight:${r.cs!=null?700:400}">${r.cs!=null?(r.cs*100).toFixed(0)+'%':'—'}</td>
+      <td style="color:${r.sm>0?R:G};font-weight:${r.sm>0?700:400}">${r.sm>0?r.sm.toFixed(0)+'د':'✓'}</td>
+      <td>${pill(r.sc)}</td>
+      <td style="min-width:140px">${notesFull||'<span style="color:var(--text4);font-size:10px">—</span>'}</td>
+    </tr>`;}).join('');
+}
+function srt(col){if(ES===col)ED*=-1;else{ES=col;ED=-1;}rET();}
+
+// COMPARISON
+function rCmp(){
+  const jr=RECS.filter(r=>r.d===D&&r.l==='J'),mr=RECS.filter(r=>r.d===D&&r.l==='M');
+  const js=stats(jr),ms=stats(mr);
+  const JC=gv('--jed'),MC=gv('--mak');
+  document.getElementById('cmp-ttl').textContent=`جدة مقابل مكة — ${D}`;
+  svgBar('ch-cmp',['الدرجة النهائية %','المكالمات','الحضور %','CSAT 100%'],[
+    {label:'جدة',data:[+js.asc.toFixed(1),+js.aca.toFixed(1),+js.att.toFixed(1),+js.csR.toFixed(1)],color:JC},
+    {label:'مكة',data:[+ms.asc.toFixed(1),+ms.aca.toFixed(1),+ms.att.toFixed(1),+ms.csR.toFixed(1)],color:MC},
+  ],{h:230,w:480,showVals:true});
+  document.getElementById('brcards').innerHTML=[['جدة',js,JC],['مكة',ms,MC]].map(([nm,s,c])=>`
+    <div class="bcard" style="border-top:3px solid ${c};flex:1">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="color:${c};font-size:18px;font-weight:900">${nm}</span>
+        <span style="background:${c}22;color:${c};border-radius:20px;padding:3px 11px;font-size:10.5px;font-weight:700">${s.pr} حاضر / ${s.tot}</span>
+      </div>
+      <div class="bsg">
+        ${[['الدرجة النهائية',s.asc.toFixed(1)+'%',s.asc>=90],['CSAT 100%',s.csR.toFixed(0)+'%',s.csR>=80],['متوسط المكالمات',s.aca.toFixed(0),s.aca>=25],['الحضور',s.att.toFixed(0)+'%',s.att>=90],['تحت 85%',s.b85+' موظف',s.b85===0],['تقصير',s.sf+' موظف',s.sf===0]].map(([l,v,ok])=>`
+          <div class="bst"><div class="bsl">${l}</div><div class="bsv" style="color:${ok?'var(--green)':'var(--amber)'}">${v}</div></div>`).join('')}
+      </div>
+    </div>`).join('');
+  document.getElementById('d2-ttl').textContent=`توزيع الدرجات النهائية — ${D}`;
+  svgBar('ch-d2',['100%','90-99%','85-89%','70-84%','أقل 70%'],[
+    {label:'جدة',data:[jr.filter(r=>r.sc>=0.99).length,jr.filter(r=>r.sc>=0.9&&r.sc<0.99).length,jr.filter(r=>r.sc>=0.85&&r.sc<0.9).length,jr.filter(r=>r.sc>=0.7&&r.sc<0.85).length,jr.filter(r=>r.sc!=null&&r.sc<0.7).length],color:JC},
+    {label:'مكة',data:[mr.filter(r=>r.sc>=0.99).length,mr.filter(r=>r.sc>=0.9&&r.sc<0.99).length,mr.filter(r=>r.sc>=0.85&&r.sc<0.9).length,mr.filter(r=>r.sc>=0.7&&r.sc<0.85).length,mr.filter(r=>r.sc!=null&&r.sc<0.7).length],color:MC},
+  ],{h:175,w:700,showVals:true});
+}
+
+// KPI
+function rKPI(){
+  const recs=fR(D,L);
+  const K=[
+    {l:'الحد الأدنى للمكالمات المستلمة',ok:recs.filter(r=>r.s===1&&r.c!=null&&r.c>=(r.st===1?30:24)).length,tot:recs.filter(r=>r.s===1&&r.c!=null).length,c:gv('--accent')},
+    {l:'الالتزام بالوقت — لا تقصير',ok:recs.filter(r=>r.s===1&&(!r.sm||r.sm===0)).length,tot:recs.filter(r=>r.s===1).length,c:gv('--green')},
+    {l:'CSAT 100% — رضا العملاء الكامل',ok:recs.filter(r=>r.s===1&&r.cs===1).length,tot:recs.filter(r=>r.s===1&&r.cs!=null).length,c:gv('--gold')},
+    {l:'الدرجة النهائية ≥ 90%',ok:recs.filter(r=>r.s===1&&r.sc!=null&&r.sc>=0.9).length,tot:recs.filter(r=>r.s===1&&r.sc!=null).length,c:gv('--violet')},
+    {l:'الدرجة النهائية ≥ 85% (الحد الأدنى)',ok:recs.filter(r=>r.s===1&&r.sc!=null&&r.sc>=0.85).length,tot:recs.filter(r=>r.s===1&&r.sc!=null).length,c:gv('--cyan')},
+    {l:'متوسط مدة المكالمة AHT ≤ 3 دقائق',ok:recs.filter(r=>r.s===1&&r.ah!=null&&r.ah<=3).length,tot:recs.filter(r=>r.s===1&&r.ah!=null).length,c:gv('--amber')},
+  ];
+  document.getElementById('kpi-bars').innerHTML=K.map(k=>{
+    const rt=k.tot?k.ok/k.tot*100:0;
+    return`<div class="kbar"><div class="kbt"><div><div class="kbl">${k.l}</div><div class="kbm">✓ ${k.ok} من أصل ${k.tot} موظف مُقيَّم</div></div><span class="kbp" style="color:${k.c}">${rt.toFixed(0)}%</span></div><div class="prog"><div class="pf" style="width:${rt}%;background:${k.c}"></div></div></div>`;}).join('');
+  const tr=getTrend(),last14=DATES.slice(-14),td=last14.map(d=>tr.find(t=>t.d===d)||{});
+  svgLine('ch-kt',[
+    {label:'الدرجة النهائية %',data:td.map(t=>t.sc||null),color:gv('--accent'),w:2},
+    {label:'درجة كاملة %',data:td.map(t=>t.s1||null),color:gv('--green'),w:1.5},
+    {label:'CSAT 100%',data:td.map(t=>t.cr||null),color:gv('--gold'),w:1.5},
+  ],last14.map(d=>d.replace('-مايو','/5').replace('-أبريل','/4')),{yMin:0,yMax:105,h:190,w:700});
+
+  // Suggested KPIs
+  const s=stats(fR(D,L));
+  const totSfHrs=(s.totSfMin/60).toFixed(1);
+  document.getElementById('kpi-suggested').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <div class="kbar"><div class="kbt"><div><div class="kbl">📊 معدل الاستغلال التشغيلي</div><div class="kbm">(إجمالي المكالمات × متوسط AHT) ÷ الساعات المتاحة</div></div><span class="kbp" style="color:var(--cyan)">${s.cap>0?Math.min(100,((s.totCa*(s.aah||2.4))/(s.cap*60))*100).toFixed(0):0}%</span></div><div class="prog"><div class="pf" style="width:${s.cap>0?Math.min(100,((s.totCa*(s.aah||2.4))/(s.cap*60))*100):0}%;background:var(--cyan)"></div></div><div style="font-size:10px;color:var(--text3);margin-top:6px">${s.cap.toFixed(0)} ساعة متاحة · ${s.totCa} مكالمة · متوسط AHT ${(s.aah||2.4).toFixed(1)}د</div></div>
+      <div class="kbar"><div class="kbt"><div><div class="kbl">⏱ إجمالي وقت التقصير</div><div class="kbm">خسارة إنتاجية يومية</div></div><span class="kbp" style="color:var(--red)">${totSfHrs}h</span></div><div class="prog"><div class="pf" style="width:${Math.min(100,s.totSfMin/600*100)}%;background:var(--red)"></div></div><div style="font-size:10px;color:var(--text3);margin-top:6px">${s.sf} موظف · ${s.totSfMin.toFixed(0)} دقيقة = ${totSfHrs} ساعة ضائعة</div></div>
+    </div>
+    <div style="background:var(--amberL);border:1px solid var(--amber);border-radius:var(--r2);padding:14px">
+      <div style="font-size:12px;font-weight:800;color:var(--amber);margin-bottom:8px">💡 مؤشرات مقترحة لدعم أهداف Operations &amp; HR</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px;color:var(--text2)">
+        <div>• <b>First Call Resolution (FCR):</b> نسبة حل المشكلة من أول مكالمة — يقيس جودة الأداء وليس فقط الكمية</div>
+        <div>• <b>Occupancy Rate:</b> وقت الموظف على المكالمة ÷ إجمالي وقت العمل — معيار تشغيلي أساسي</div>
+        <div>• <b>Shrinkage Rate:</b> نسبة الوقت غير المنتج (غياب + تقصير + راحة زائدة) ÷ إجمالي ساعات الدوام</div>
+        <div>• <b>Schedule Adherence:</b> الالتزام بالجدول الزمني دقيقةً بدقيقة — مؤشر HR و Ops معاً</div>
+        <div>• <b>Average Speed of Answer (ASA):</b> متوسط وقت انتظار العميل — يُكمل صورة الأداء</div>
+        <div>• <b>Absenteeism Rate Monthly:</b> معدل الغياب الشهري مقارنةً بالمعيار (≤5% هو الهدف المقترح)</div>
+        <div>• <b>درجة أداء الفريق الإجمالية:</b> مؤشر مركّب: (الحضور × 20%) + (المكالمات × 30%) + (CSAT × 25%) + (التقصير × 25%)</div>
+        <div>• <b>Capacity Utilization Trend:</b> هل الفريق يُستغل بكفاءة أم هناك طاقة معطّلة؟ — قياس أسبوعي</div>
+      </div>
+    </div>
+    <div style="background:var(--accentL);border:1px solid var(--accent);border-radius:var(--r2);padding:14px;margin-top:10px">
+      <div style="font-size:12px;font-weight:800;color:var(--accent);margin-bottom:6px">🎯 طريقة حساب الدرجة المقترحة (Weighted Score)</div>
+      <div style="font-size:11px;color:var(--text2);line-height:1.8">
+        <b>الصيغة المقترحة:</b> (CSAT × 35%) + (الالتزام بالمكالمات × 30%) + (الالتزام بالوقت × 20%) + (AHT ≤3د × 15%)<br/>
+        <b>مبرر التغيير:</b> الصيغة الحالية تعطي أوزاناً غير واضحة؛ الصيغة المقترحة تُبرز رضا العميل كمحور رئيسي وتُوازن بين الكمية والجودة والانضباط الزمني.
+      </div>
+    </div>`;
+}
+
+// CAPACITY
+function rCap(){
+  const tr=getTrend();
+  const maydates=DATES.filter(d=>d.includes('مايو'));
+  const mtd=maydates.map(d=>tr.find(t=>t.d===d)||{d,pr:0,cap:0,tc:0,ah:0,ab:0,tot:0});
+  const s=stats(fR(D,L));
+  const util=s.cap>0?Math.min(100,((s.totCa*(s.aah||2.4))/(s.cap*60))*100):0;
+  const capPerAgent=s.pr>0?s.cap/s.pr:0;
+  const callsPerHour=s.cap>0?s.totCa/s.cap:0;
+
+  document.getElementById('cap-kpis').innerHTML=[
+    {l:'الموظفون الحاضرون',v:s.pr,u:'موظف',sub:`${s.ab} غائب من ${s.tot}`,c:'var(--accent)'},
+    {l:'الساعات التشغيلية المتاحة',v:s.cap.toFixed(0),u:'ساعة',sub:`متوسط ${capPerAgent.toFixed(1)}h لكل موظف`,c:'var(--jed)'},
+    {l:'إجمالي المكالمات المستلمة',v:s.totCa.toLocaleString(),u:'',sub:`${callsPerHour.toFixed(1)} مكالمة لكل ساعة متاحة`,c:'var(--green)'},
+    {l:'معدل استغلال الطاقة',v:util.toFixed(0),u:'%',sub:`بناءً على AHT متوسط ${(s.aah||2.4).toFixed(1)}د`,c:util>=70?'var(--green)':util>=50?'var(--amber)':'var(--red)'},
+    {l:'إجمالي التقصير الزمني',v:(s.totSfMin/60).toFixed(1),u:'ساعة',sub:`${s.sf} موظف · ${s.totSfMin.toFixed(0)} دقيقة`,c:s.sf>5?'var(--red)':'var(--green)'},
+    {l:'متوسط مدة المكالمة AHT',v:(s.aah||0).toFixed(1),u:'دقيقة',sub:`${s.aht3} موظف تجاوز 3 دقائق`,c:(s.aah||0)<=3?'var(--green)':'var(--amber)'},
+  ].map(k=>`<div class="cap-card"><div class="cap-lbl">${k.l}</div><div style="display:flex;align-items:flex-end;gap:3px"><span class="cap-val" style="color:${k.c}">${k.v}</span><span class="cap-u">${k.u}</span></div><div class="cap-sub">${k.sub}</div></div>`).join('');
+
+  const lbl=maydates.map(d=>d.replace('-مايو','/5'));
+  const maxCap=Math.max(...mtd.map(t=>t.cap||0));
+  const maxCalls=Math.max(...mtd.map(t=>t.tc||0));
+  svgBar('ch-cap',lbl,[
+    {label:'ساعات متاحة',data:mtd.map(t=>t.cap||0),color:gv('--jed')},
+    {label:'إجمالي المكالمات',data:mtd.map(t=>t.tc||0),color:gv('--green')},
+  ],{h:175,showVals:false});
+
+  const utilData=mtd.map(t=>t.cap>0?+Math.min(100,((t.tc||0)*2.4/(t.cap*60))*100).toFixed(1):null);
+  svgLine('ch-util',[{label:'معدل الاستغلال %',data:utilData,color:gv('--cyan'),w:2.5,dots:true}],lbl,{yMin:0,yMax:60,h:165});
+  const absData=mtd.map(t=>t.ab&&(t.pr+t.ab)>0?+((t.ab/(t.pr+t.ab))*100).toFixed(1):null);
+  svgLine('ch-abs',[{label:'معدل الغياب %',data:absData,color:gv('--red'),w:2,dots:true}],lbl,{yMin:0,yMax:25,h:165});
+
+  const avgUtil=(utilData.filter(Boolean).reduce((a,b)=>a+b,0)/Math.max(1,utilData.filter(Boolean).length)).toFixed(1);
+  const peakDay=maydates.reduce((best,d,i)=>{const v=utilData[i]||0;return v>(utilData[maydates.indexOf(best)]||0)?d:best},maydates[0]);
+  document.getElementById('cap-analysis').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px">
+      <div style="background:var(--bg3);border-radius:var(--r2);padding:14px;text-align:center">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:6px">متوسط معدل الاستغلال (مايو)</div>
+        <div style="font-size:26px;font-weight:900;color:var(--cyan)">${avgUtil}%</div>
+        <div style="font-size:10px;color:var(--text4);margin-top:4px">المعيار المثالي: 75–85%</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:var(--r2);padding:14px;text-align:center">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:6px">إجمالي ساعات التقصير (مايو)</div>
+        <div style="font-size:26px;font-weight:900;color:var(--red)">${(RECS.filter(r=>r.d.includes('مايو')&&r.s===1).reduce((a,r)=>a+(r.sm||0),0)/60).toFixed(0)}h</div>
+        <div style="font-size:10px;color:var(--text4);margin-top:4px">= ساعات إنتاجية ضائعة</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:var(--r2);padding:14px;text-align:center">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:6px">إجمالي مكالمات مايو</div>
+        <div style="font-size:26px;font-weight:900;color:var(--green)">${RECS.filter(r=>r.d.includes('مايو')&&r.c).reduce((a,r)=>a+(r.c||0),0).toLocaleString()}</div>
+        <div style="font-size:10px;color:var(--text4);margin-top:4px">متوسط ${(RECS.filter(r=>r.d.includes('مايو')&&r.c).reduce((a,r)=>a+(r.c||0),0)/Math.max(1,DATES.filter(d=>d.includes('مايو')).length)).toFixed(0)}/يوم</div>
+      </div>
+    </div>
+    <div style="background:var(--cyanL);border:1px solid var(--cyan);border-radius:var(--r2);padding:14px;font-size:11px;color:var(--text2);line-height:1.8">
+      <b style="color:var(--cyan)">🔋 قراءة طاقة الفريق:</b> متوسط معدل الاستغلال في مايو <b>${avgUtil}%</b> — وهو ${+avgUtil<50?'<span style="color:var(--red)">منخفض ويشير إلى طاقة معطّلة أو حجم مكالمات قليل</span>':+avgUtil<75?'<span style="color:var(--amber)">متوسط ويمكن زيادة كفاءة التوزيع</span>':'<span style="color:var(--green)">جيد ويقترب من المعيار التشغيلي المثالي</span>'}. 
+      إجمالي ساعات التقصير الشهرية يُشكّل خسارة تشغيلية حقيقية ينبغي معالجتها. 
+      <b>المقترح:</b> مراجعة جدولة الموظفين وتوزيع الأحمال بناءً على أوقات ذروة المكالمات.
+    </div>`;
+}
+
+// MONTHLY
+function rMon(){
+  const mayR=RECS.filter(r=>r.d.includes('مايو')),aprR=RECS.filter(r=>r.d.includes('أبريل'));
+  const sAll=stats(mayR),sJ=stats(mayR.filter(r=>r.l==='J')),sM=stats(mayR.filter(r=>r.l==='M'));
+  const sApr=stats(aprR);
+  document.getElementById('mon-cards').innerHTML=[
+    {lbl:'مايو 2025 — الكل',s:sAll,c:gv('--accent'),cur:true},
+    {lbl:'مايو — جدة',s:sJ,c:gv('--jed')},
+    {lbl:'مايو — مكة',s:sM,c:gv('--mak')},
+    {lbl:'أبريل 2025 — الكل',s:sApr,c:gv('--text3')},
+  ].map(m=>`<div class="mcard" style="border-top:3px solid ${m.c}">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span style="font-size:14px;font-weight:800;color:${m.c}">${m.lbl}</span>
+      ${m.cur?`<span style="background:${m.c}18;color:${m.c};border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700">الشهر الحالي</span>`:''}
+    </div>
+    <div class="mstg">
+      ${[['السجلات',m.s.tot.toLocaleString(),null],['حاضر',m.s.pr.toLocaleString(),null],['الدرجة النهائية',m.s.asc.toFixed(1)+'%',m.s.asc>=90],['CSAT 100%',m.s.csR.toFixed(1)+'%',m.s.csR>=80],['متوسط المكالمات',m.s.aca.toFixed(1),m.s.aca>=25],['تحت 85%',m.s.b85+' موظف',m.s.b85===0]].map(([l,v,ok])=>`
+        <div class="mst"><div class="msl">${l}</div><div class="msv" style="color:${ok===true?'var(--green)':ok===false?'var(--amber)':'var(--text)'}">${v}</div></div>`).join('')}
+    </div>
+  </div>`).join('');
+  const lbl=DATES.map(d=>d.replace('-مايو','/5').replace('-أبريل','/4'));
+  svgLine('ch-ft',[
+    {label:'الدرجة النهائية %',data:TA.map(t=>t.sc||null),color:gv('--accent'),w:2},
+    {label:'الحضور %',data:TA.map(t=>t.at||null),color:gv('--amber'),w:1.5},
+    {label:'CSAT 100%',data:TA.map(t=>t.cr||null),color:gv('--green'),w:1.5},
+  ],lbl,{yMin:0,yMax:105,h:200,w:490});
+  svgLine('ch-bt',[
+    {label:'جدة',data:TJ.map(t=>t.sc||null),color:gv('--jed'),w:2,dots:false},
+    {label:'مكة',data:TM.map(t=>t.sc||null),color:gv('--mak'),w:2},
+  ],lbl,{yMin:0,yMax:105,h:190,w:490});
+}
+
+// DETAIL PAGES
+function goDetail(type){
+  const prevPG=PG;
+  const recs=fR(D,L);
+  const titles={att:'تفاصيل معدل الحضور',score:'تفاصيل الدرجة النهائية',csat:'تفاصيل CSAT',calls:'تفاصيل المكالمات المستلمة',below:'تفاصيل الموظفين الذين يحتاجون متابعة',sf:'تفاصيل التقصير الزمني'};
+  const pageId='pg-det-'+type;
+  const contentId='det-'+type+'-content';
+  // Set back button + header
+  const backBtn=`<button class="det-back" onclick="goPage('${prevPG}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg> رجوع</button>`;
+  const G=gv('--green'),R=gv('--red'),AM=gv('--amber'),A=gv('--accent');
+  let html=backBtn+`<h2 style="font-size:18px;font-weight:900;margin-bottom:14px;color:var(--text)">${titles[type]||type} — ${D}</h2>`;
+
+  if(type==='att'){
+    const p=recs.filter(r=>r.s===1),ab=recs.filter(r=>r.s!==1);
+    const rate=recs.length?p.length/recs.length*100:0;
+    html+=`<div class="det-stat-grid">
+      <div class="det-stat" style="border-color:${G}"><div class="det-stat-lbl">معدل الحضور</div><div class="det-stat-val" style="color:${G}">${rate.toFixed(1)}%</div></div>
+      <div class="det-stat" style="border-color:${A}"><div class="det-stat-lbl">إجمالي الحاضرين</div><div class="det-stat-val" style="color:${A}">${p.length}</div></div>
+      <div class="det-stat" style="border-color:${R}"><div class="det-stat-lbl">إجمالي الغائبين</div><div class="det-stat-val" style="color:${R}">${ab.length}</div></div>
+      <div class="det-stat" style="border-color:var(--text3)"><div class="det-stat-lbl">إجمالي الفريق</div><div class="det-stat-val">${recs.length}</div></div>
+    </div>`;
+    // Trend
+    const tr=getTrend(),last14=DATES.slice(-14),td=last14.map(d=>tr.find(t=>t.d===d)||{});
+    html+=`<div class="card" style="margin-bottom:14px"><div class="ch"><span class="ct">تطور معدل الحضور — آخر 14 يوم</span></div><div id="det-att-chart"></div></div>`;
+    html+=`<div class="card"><div class="ch"><span class="ct">قائمة الغائبين — ${D}</span></div>`;
+    if(ab.length){
+      html+=`<div class="tw"><table><thead><tr><th>الموظف</th><th>الفرع</th><th>الملاحظات</th></tr></thead><tbody>`;
+      ab.forEach(r=>{html+=`<tr><td style="font-weight:700">${r.n}</td><td style="color:${r.l==='J'?'var(--jed)':'var(--mak)'}">${r.l==='J'?'جدة':'مكة'}</td><td style="font-size:10.5px">${r.nt||'—'}</td></tr>`;});
+      html+=`</tbody></table></div>`;
+    } else html+=`<div style="padding:12px;color:var(--green);font-weight:700">✓ لا يوجد غياب في هذا التاريخ</div>`;
+    html+=`</div>`;
+    document.getElementById(contentId).innerHTML=html;
+    setTimeout(()=>svgLine('det-att-chart',[{label:'الحضور %',data:td.map(t=>t.at||null),color:G,w:2.5,dots:true}],last14.map(d=>d.replace('-مايو','/5').replace('-أبريل','/4')),{yMin:70,yMax:105,h:185,w:580}),50);
+  }
+  else if(type==='score'){
+    const ws=recs.filter(r=>r.s===1&&r.sc!=null);
+    const avg=ws.length?ws.reduce((a,r)=>a+r.sc,0)/ws.length*100:0;
+    const s100=ws.filter(r=>r.sc>=0.99).length;
+    html+=`<div class="det-stat-grid">
+      <div class="det-stat" style="border-color:${A}"><div class="det-stat-lbl">متوسط الدرجة النهائية</div><div class="det-stat-val" style="color:${A}">${avg.toFixed(1)}%</div></div>
+      <div class="det-stat" style="border-color:${G}"><div class="det-stat-lbl">درجة كاملة 100%</div><div class="det-stat-val" style="color:${G}">${s100}</div></div>
+      <div class="det-stat" style="border-color:${AM}"><div class="det-stat-lbl">تحت 90%</div><div class="det-stat-val" style="color:${AM}">${ws.filter(r=>r.sc<0.9).length}</div></div>
+      <div class="det-stat" style="border-color:${R}"><div class="det-stat-lbl">تحت 85%</div><div class="det-stat-val" style="color:${R}">${ws.filter(r=>r.sc<0.85).length}</div></div>
+    </div>`;
+    const tr=getTrend(),last14=DATES.slice(-14),td=last14.map(d=>tr.find(t=>t.d===d)||{});
+    html+=`<div class="card" style="margin-bottom:14px"><div class="ch"><span class="ct">تطور متوسط الدرجة النهائية — آخر 14 يوم</span><span class="cbadge" style="background:var(--accentL);color:var(--accent)">متوسط يومي للموظفين المُقيَّمين</span></div><div id="det-score-chart"></div></div>`;
+    html+=`<div class="card"><div class="ch"><span class="ct">توزيع الدرجات النهائية التفصيلي — ${D}</span></div><div id="det-score-dist"></div></div>`;
+    document.getElementById(contentId).innerHTML=html;
+    const dc=[G,A,gv('--cyan'),AM,R];
+    const dnFull=['100%','90–99%','85–89%','70–84%','أقل 70%'];
+    const distFull=[ws.filter(r=>r.sc>=0.99).length,ws.filter(r=>r.sc>=0.9&&r.sc<0.99).length,ws.filter(r=>r.sc>=0.85&&r.sc<0.9).length,ws.filter(r=>r.sc>=0.7&&r.sc<0.85).length,ws.filter(r=>r.sc<0.7).length];
+    setTimeout(()=>{
+      svgLine('det-score-chart',[{label:'متوسط الدرجة النهائية %',data:td.map(t=>t.sc||null),color:A,w:2.5,dots:true},{label:'% درجة كاملة',data:td.map(t=>t.s1||null),color:G,w:2}],last14.map(d=>d.replace('-مايو','/5').replace('-أبريل','/4')),{yMin:60,yMax:105,h:190,w:580});
+      svgBar('det-score-dist',dnFull,[{label:'عدد الموظفين',data:distFull,color:A}],{h:160,showVals:true});
+    },50);
+  }
+  else if(type==='csat'){
+    const ws=recs.filter(r=>r.s===1&&r.cs!=null);
+    const ok=ws.filter(r=>r.cs===1).length;
+    const rate=ws.length?ok/ws.length*100:0;
+    html+=`<div class="det-stat-grid">
+      <div class="det-stat" style="border-color:${G}"><div class="det-stat-lbl">CSAT 100%</div><div class="det-stat-val" style="color:${G}">${rate.toFixed(1)}%</div></div>
+      <div class="det-stat" style="border-color:${A}"><div class="det-stat-lbl">موظفون بـCSAT كامل</div><div class="det-stat-val" style="color:${A}">${ok}</div></div>
+      <div class="det-stat" style="border-color:${R}"><div class="det-stat-lbl">CSAT أقل من 80%</div><div class="det-stat-val" style="color:${R}">${ws.filter(r=>r.cs<0.8).length}</div></div>
+      <div class="det-stat" style="border-color:var(--text3)"><div class="det-stat-lbl">إجمالي المُقيَّمين</div><div class="det-stat-val">${ws.length}</div></div>
+    </div>`;
+    html+=`<div class="card" style="margin-bottom:14px"><div class="ch"><span class="ct">تطور CSAT 100% — آخر 14 يوم</span></div><div id="det-csat-chart"></div></div>`;
+    const low=ws.filter(r=>r.cs<0.8).sort((a,b)=>(a.cs||0)-(b.cs||0));
+    html+=`<div class="card"><div class="ch"><span class="ct">موظفون بـCSAT أقل من 80%</span></div>`;
+    html+=`<div class="tw"><table><thead><tr><th>الموظف</th><th>الفرع</th><th>CSAT</th><th>الدرجة النهائية</th><th>عدد المكالمات</th></tr></thead><tbody>`;
+    low.forEach(r=>{html+=`<tr><td style="font-weight:700">${r.n}</td><td style="color:${r.l==='J'?'var(--jed)':'var(--mak)'}">${r.l==='J'?'جدة':'مكة'}</td><td style="color:${R};font-weight:700">${r.cs!=null?(r.cs*100).toFixed(0)+'%':'—'}</td><td>${pill(r.sc)}</td><td>${r.c??'—'}</td></tr>`;});
+    html+=`</tbody></table></div></div>`;
+    document.getElementById(contentId).innerHTML=html;
+    const tr=getTrend(),last14=DATES.slice(-14),td=last14.map(d=>tr.find(t=>t.d===d)||{});
+    setTimeout(()=>svgLine('det-csat-chart',[{label:'CSAT 100%',data:td.map(t=>t.cr||null),color:G,w:2.5,dots:true}],last14.map(d=>d.replace('-مايو','/5').replace('-أبريل','/4')),{yMin:40,yMax:105,h:185,w:580}),50);
+  }
+  else if(type==='calls'){
+    const wc=recs.filter(r=>r.s===1&&r.c!=null);
+    const avg=wc.length?wc.reduce((a,r)=>a+r.c,0)/wc.length:0;
+    const min10=wc.filter(r=>r.c>=(r.st===1?30:24)).length;
+    html+=`<div class="det-stat-grid">
+      <div class="det-stat" style="border-color:${A}"><div class="det-stat-lbl">متوسط المكالمات المستلمة / موظف</div><div class="det-stat-val" style="color:${A}">${avg.toFixed(1)}</div></div>
+      <div class="det-stat" style="border-color:${G}"><div class="det-stat-lbl">إجمالي المكالمات اليومية</div><div class="det-stat-val" style="color:${G}">${wc.reduce((a,r)=>a+r.c,0).toLocaleString()}</div></div>
+      <div class="det-stat" style="border-color:${G}"><div class="det-stat-lbl">حققوا الحد الأدنى</div><div class="det-stat-val" style="color:${G}">${min10}</div></div>
+      <div class="det-stat" style="border-color:${R}"><div class="det-stat-lbl">لم يحققوا الحد الأدنى</div><div class="det-stat-val" style="color:${R}">${wc.length-min10}</div></div>
+    </div>`;
+    html+=`<div class="card" style="margin-bottom:14px"><div class="ch"><span class="ct">تطور متوسط المكالمات اليومي</span></div><div id="det-calls-chart"></div></div>`;
+    const below=wc.filter(r=>r.c<(r.st===1?30:24)).sort((a,b)=>a.c-b.c);
+    html+=`<div class="card"><div class="ch"><span class="ct">موظفون لم يحققوا الحد الأدنى للمكالمات — ${D}</span></div>`;
+    html+=`<div class="tw"><table><thead><tr><th>الموظف</th><th>الفرع</th><th>المكالمات</th><th>الحد الأدنى</th><th>الفارق</th><th>الدرجة النهائية</th></tr></thead><tbody>`;
+    below.forEach(r=>{const mn=r.st===1?30:24;html+=`<tr><td style="font-weight:700">${r.n}</td><td style="color:${r.l==='J'?'var(--jed)':'var(--mak)'}">${r.l==='J'?'جدة':'مكة'}</td><td style="color:${AM};font-weight:700">${r.c}</td><td style="color:var(--text3)">${mn}</td><td style="color:${R};font-weight:700">-${mn-r.c}</td><td>${pill(r.sc)}</td></tr>`;});
+    html+=`</tbody></table></div></div>`;
+    document.getElementById(contentId).innerHTML=html;
+    const tr=getTrend(),last14=DATES.slice(-14),td=last14.map(d=>tr.find(t=>t.d===d)||{});
+    setTimeout(()=>svgLine('det-calls-chart',[{label:'متوسط المكالمات',data:td.map(t=>t.ca||null),color:A,w:2.5,dots:true}],last14.map(d=>d.replace('-مايو','/5').replace('-أبريل','/4')),{yMin:0,yMax:80,h:185,w:580}),50);
+  }
+  else if(type==='below'){
+    const ws=recs.filter(r=>r.s===1&&r.sc!=null&&r.sc<0.85).sort((a,b)=>a.sc-b.sc);
+    html+=`<div style="margin-bottom:14px;font-size:12px;color:var(--text2)">عدد الموظفين تحت 85% في ${D}: <b style="color:var(--red)">${ws.length} موظف</b></div>`;
+    if(ws.length){
+      html+=`<div class="card"><div class="ch"><span class="ct">تفاصيل الموظفين الذين يحتاجون متابعة</span><span class="cbadge" style="background:var(--redL);color:var(--red)">الدرجة النهائية أقل من 85%</span></div>`;
+      html+=`<div class="tw"><table><thead><tr><th>الموظف</th><th>الفرع</th><th>الدرجة النهائية</th><th>سبب التقصير</th><th>المكالمات</th><th>CSAT</th><th>التقصير الزمني</th><th>AHT</th></tr></thead><tbody>`;
+      ws.forEach(r=>{
+        const st=r.st===1?30:24;
+        const reasons=[];
+        if(r.c!=null&&r.c<st)reasons.push(`مكالمات قليلة (${r.c}/${st})`);
+        if(r.sm>0)reasons.push(`تقصير زمني ${r.sm.toFixed(0)}د`);
+        if(r.cs!=null&&r.cs<0.8)reasons.push(`CSAT منخفض (${(r.cs*100).toFixed(0)}%)`);
+        if(r.ah!=null&&r.ah>3)reasons.push(`AHT مرتفع (${r.ah.toFixed(1)}د)`);
+        if(r.wh!=null&&r.wh<(r.st===1?9.5:7.5))reasons.push(`ساعات قصيرة (${r.wh.toFixed(1)}h)`);
+        if(r.ms)r.ms.split(',').filter(Boolean).forEach(m=>reasons.push(`بيانات ناقصة: ${m}`));
+        html+=`<tr>
+          <td style="font-weight:700">${r.n}</td>
+          <td style="color:${r.l==='J'?'var(--jed)':'var(--mak)'}">${r.l==='J'?'جدة':'مكة'}</td>
+          <td>${pill(r.sc)}</td>
+          <td style="min-width:200px">${reasons.map(rx=>`<span class="tag" style="background:var(--redL);color:var(--red)">${rx}</span>`).join('')||'—'}</td>
+          <td style="color:${r.c!=null?(r.c>=st?G:R):AM};font-weight:700">${r.c??'—'}</td>
+          <td style="color:${r.cs!=null?(r.cs>=0.8?G:R):AM}">${r.cs!=null?(r.cs*100).toFixed(0)+'%':'—'}</td>
+          <td style="color:${r.sm>0?R:G}">${r.sm>0?r.sm.toFixed(0)+'د':'✓'}</td>
+          <td style="color:${r.ah!=null?(r.ah>3?R:G):AM}">${r.ah!=null?r.ah.toFixed(1)+'د':'—'}</td>
+        </tr>`;
+      });
+      html+=`</tbody></table></div></div>`;
+    } else html+=`<div style="background:var(--greenL);border:1px solid var(--green);border-radius:var(--r2);padding:16px;font-size:12px;color:var(--green);font-weight:700">✓ لا يوجد موظفون تحت 85% في هذا التاريخ</div>`;
+    document.getElementById(contentId).innerHTML=html;
+  }
+  else if(type==='sf'){
+    const sf=recs.filter(r=>r.s===1&&r.sm>0).sort((a,b)=>b.sm-a.sm);
+    const totMin=sf.reduce((a,r)=>a+r.sm,0);
+    html+=`<div class="det-stat-grid">
+      <div class="det-stat" style="border-color:${R}"><div class="det-stat-lbl">موظفون بتقصير</div><div class="det-stat-val" style="color:${R}">${sf.length}</div></div>
+      <div class="det-stat" style="border-color:${R}"><div class="det-stat-lbl">إجمالي التقصير</div><div class="det-stat-val" style="color:${R}">${totMin.toFixed(0)} د</div></div>
+      <div class="det-stat" style="border-color:${AM}"><div class="det-stat-lbl">متوسط التقصير / موظف</div><div class="det-stat-val" style="color:${AM}">${sf.length?( totMin/sf.length).toFixed(0):0} د</div></div>
+      <div class="det-stat" style="border-color:var(--text3)"><div class="det-stat-lbl">ساعات ضائعة</div><div class="det-stat-val">${(totMin/60).toFixed(1)} h</div></div>
+    </div>`;
+    html+=`<div class="card" style="margin-bottom:14px"><div class="ch"><span class="ct">تطور التقصير الزمني — آخر 14 يوم</span></div><div id="det-sf-chart"></div></div>`;
+    html+=`<div class="card"><div class="ch"><span class="ct">تفاصيل التقصير — ${D}</span></div>`;
+    if(sf.length){
+      html+=`<div class="tw"><table><thead><tr><th>الموظف</th><th>الفرع</th><th>دقائق التقصير</th><th>ساعات العمل الفعلية</th><th>الدرجة النهائية</th><th>الملاحظات</th></tr></thead><tbody>`;
+      sf.forEach(r=>{html+=`<tr><td style="font-weight:700">${r.n}</td><td style="color:${r.l==='J'?'var(--jed)':'var(--mak)'}">${r.l==='J'?'جدة':'مكة'}</td><td style="color:${R};font-weight:700">${r.sm.toFixed(0)} د</td><td>${r.wh?r.wh.toFixed(2)+'h':'—'}</td><td>${pill(r.sc)}</td><td style="font-size:10.5px;max-width:200px">${r.nt||'—'}</td></tr>`;});
+      html+=`</tbody></table></div>`;
+    } else html+=`<div style="padding:12px;color:var(--green);font-weight:700">✓ لا يوجد تقصير زمني في هذا التاريخ</div>`;
+    html+=`</div>`;
+    document.getElementById(contentId).innerHTML=html;
+    const tr=getTrend(),last14=DATES.slice(-14),td=last14.map(d=>tr.find(t=>t.d===d)||{});
+    setTimeout(()=>svgBar('det-sf-chart',last14.map(d=>d.replace('-مايو','/5').replace('-أبريل','/4')),[{label:'موظفون بتقصير',data:td.map(t=>t.sh||0),color:R}],{h:160,showVals:true}),50);
+  }
+
+  // Show the detail page
+  document.querySelectorAll('.pg').forEach(e=>e.classList.remove('show'));
+  document.getElementById(pageId).classList.add('show');
+  PG=pageId.replace('pg-','');
+  document.getElementById('ph1').textContent=titles[type]||type;
+  document.getElementById('ph2').textContent=`اضغط رجوع للعودة — ${D}`;
+  document.getElementById('mob-tit').textContent=titles[type]||type;
+  document.getElementById('sb').classList.remove('open');
+}
+
+// NAVIGATION
+const pgNames={ov:'نظرة عامة',emp:'الموظفون',cmp:'مقارنة الفروع',kpi:'مؤشرات الأداء',cap:'الطاقة والكفاءة',mon:'الملخص الشهري'};
+function goPage(p){
+  PG=p;
+  document.querySelectorAll('.ni').forEach((b,i)=>b.classList.toggle('on',['ov','emp','cmp','kpi','cap','mon'][i]===p));
+  document.querySelectorAll('.pg').forEach(e=>e.classList.remove('show'));
+  const el=document.getElementById('pg-'+p);if(el)el.classList.add('show');
+  const tit=pgNames[p]||p;
+  document.getElementById('ph1').textContent=tit;
+  document.getElementById('ph2').textContent='مؤشرات الأداء الرئيسية — اضغط على أي بطاقة لعرض تفاصيلها';
+  document.getElementById('mob-tit').textContent=tit;
+  document.getElementById('sb').classList.remove('open');
+  rCurPage();
+}
+function setDate(d){D=d;rDates();rKPIs();rCurPage();}
+function setLoc(l){
+  L=l;
+  document.querySelectorAll('.lb').forEach(b=>b.className='lb');
+  document.querySelectorAll('.lb')[l==='all'?0:l==='J'?1:2].classList.add(l==='all'?'lA':l==='J'?'lJ':'lM');
+  rKPIs();rCurPage();
+}
+function rCurPage(){
+  rDates();rKPIs();
+  if(PG==='ov')rOv();else if(PG==='emp')rEmp();
+  else if(PG==='cmp')rCmp();else if(PG==='kpi')rKPI();
+  else if(PG==='cap')rCap();else if(PG==='mon')rMon();
+}
+
+// ══════════════════════════════════════════════════════════════════
+//  DATA LOADER — يقرأ من data.json (عدّل data.json فقط للتحديث)
+// ══════════════════════════════════════════════════════════════════
+async function loadData(){
+  try{
+    var res=await fetch('data.json?v=2');
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    return await res.json();
+  }catch(e){
+    var ltxt=document.getElementById('ltxt');
+    var lsp=document.getElementById('lspinner');
+    if(ltxt){ltxt.textContent='تعذّر تحميل data.json — تأكد أن الملف موجود';ltxt.style.color='#dc2626';}
+    if(lsp){lsp.style.borderColor='#fee2e2';lsp.style.borderTopColor='#dc2626';}
+    throw e;
+  }
+}
+
+loadData().then(function(DATA){
+  DATES = DATA.dates   || [];
+  TA    = DATA.ta      || [];
+  TJ    = DATA.tj      || [];
+  TM    = DATA.tm      || [];
+  RECS  = DATA.records || [];
+
+  // Default to last available date
+  if(DATES.length>0) D=DATES[DATES.length-1];
+
+  // Footer
+  var info=DATA._info||{};
+  var vn=document.querySelector('.vnote');
+  if(vn) vn.innerHTML=RECS.length.toLocaleString()+' سجل · '+DATES.length+' يوم<br/>آخر تحديث: '+(info.last_updated||'—');
+
+  // Theme + render
+  isDark=window.matchMedia('(prefers-color-scheme:dark)').matches;
+  applyTheme();
+
+
+
+
+  // Single event delegation - handles ALL button clicks
+  document.addEventListener('click', function(e){
+    var t = e.target;
+
+    // Nav menu items
+    var nav = t.closest('[data-nav]');
+    if(nav){ goPage(nav.getAttribute('data-nav')); return; }
+
+    // Location filter
+    var loc = t.closest('[data-loc]');
+    if(loc){ setLoc(loc.getAttribute('data-loc')); return; }
+
+    // KPI detail cards
+    var kpi = t.closest('[data-kpi]');
+    if(kpi){ goDetail(kpi.getAttribute('data-kpi')); return; }
+
+    // Table sort headers
+    var sort = t.closest('[data-sort]');
+    if(sort){ srt(sort.getAttribute('data-sort')); return; }
+
+    // Theme toggle
+    if(t.id==='tsw' || t.closest('#tsw')){ toggleTheme(); return; }
+
+    // Mobile menu button
+    var sb = document.getElementById('sb');
+    if(t.id==='mob-btn' || t.closest('#mob-btn')){ if(sb) sb.classList.toggle('open'); return; }
+
+    // Back button in detail pages
+    if(t.classList.contains('det-back') || t.closest('.det-back')){ goPage('ov'); return; }
+  });
+
+  // Hide loading
+  var ld=document.getElementById('loading');
+  if(ld) ld.style.display='none';
+
+}).catch(function(err){
+  console.error('Failed to load data.json:',err);
+});
+</script>
+</body>
+</html>
